@@ -25,8 +25,8 @@ function App() {
   // + 버튼 클릭
   const onClickPlus = (name) => {
     if(name == "strawberry"){
-      strawberryRedux.count += 1;
-      FruitDataAction.updateStrawberry({strawberry:strawberryRedux});
+      strawberryRedux.count += 1; // 가져온 데이터를 수정합니다.
+      FruitDataAction.updateStrawberry({strawberry:strawberryRedux}); // 수정한 데이터를 적용합니다.
       return;
     }
 
