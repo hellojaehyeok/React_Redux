@@ -10,22 +10,19 @@ redux는 따로 정보를 넘길 필요 없이 redux에 저장된 변수를 변�
 
 설치       
 
-    npm install redux
     npm install react-redux
-    npm install redux-actions
+    npm install redux-actions   
 
 
 오류가 나면 아래 코드를 package.json에 작성 후 npm install 한다.      
 
     "react-redux": "7.2.3",
-    "redux": "4.0.5",
     "redux-actions": "^2.6.5",
 
 
 # index.js
 react-redux와 store를 import한다.       
 Provider store={store} 로 감싼다.        
-
 
 index.js        
 
@@ -36,11 +33,9 @@ index.js
     .
     <Provider store={store}>
         <React.StrictMode>
-            <BrowserRouter >
-            <Route path="/" component={App} />
-            </BrowserRouter>
+        <App />
         </React.StrictMode>
-    </Provider>
+    </Provider>,
         
 
 

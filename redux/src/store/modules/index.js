@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import deliveryData from './deliveryData';
+import fruitData from './fruitData';
 
 export default combineReducers({
-  deliveryData,
+  fruitData,
 });
