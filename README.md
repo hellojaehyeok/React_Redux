@@ -1,8 +1,8 @@
 redux-react 기초세팅 및 사용방법입니다.       
 redux는 전역에서 사용 가능한 변수 저장소라고 생각하면 이해하기 편합니다.       
 react에서 정보를 전달할 때는 props를 이용하여 부모, 자식 간 이동을 해야 하는데       
-그 규모가 방대해지면 코드를 관리하기 어렵워집니다.     
-redux는 따로 정보를 넘길 필요 없이 redux에 저장된 변수를 변경되면        
+규모가 방대해지면 코드를 관리하기 어렵워집니다.     
+redux는 따로 정보를 넘길 필요 없이 redux에 저장된 변수를 변경하면        
 사용하고 있는 파일은 자동적으로 렌더링 됩니다.         
 
 
@@ -55,6 +55,8 @@ store 폴더를 따로 만들어 파일을 관리합니다.
 쉽게 생각하여 1번, 2번, 4번은 set // 3번은 get 이라고 생각하면 좋습니다.       
 3번에는 변수의 default 값을 설정합니다.       
 
+fruitData.js         
+
 
     import { createAction, handleActions } from 'redux-actions';
     import produce from 'immer';
@@ -101,9 +103,8 @@ store 폴더를 따로 만들어 파일을 관리합니다.
 
     
 # Redux 활용
-actionCreators의 경로를 지정해 준다.       
+actionCreators의 경로를 지정해 줍니다.       
 FruitDataAction는 store에 있는 데이터를 수정할 때 사용합니다.       
-
 
 useSelector를 사용하여 저장한 데이터에 접근합니다.          
 
@@ -129,9 +130,35 @@ JSON.parse(JSON.stringify( -data- )) 를 사용하여 변수를 따로 만든 �
     const fruitRedux = JSON.parse(JSON.stringify(fruitData.fruit));
 
 
-위 코드에서 데이터를 찾지 못하거나 변경이 안 되는 것 같다 싶으면  redux 코드를 다시       
-확인하거나 store 콘솔에 찍어 제대로 접근하고 있는지 확인합니다.            
+위 코드에서 데이터를 찾지 못하거나 변경이 안 되는 것 같다 싶으면 redux 코드를 다시       
+확인하시고 storeData를 콘솔에 찍어 제대로 접근하고 있는지 확인하면 됩니다.            
 
     const storeData = useSelector(store=>{ return store});
 
 
+# Redux 초기화
+redux를 초기화하는 여러 가지 방법 중 하나입니다.        
+js 파일을 따로 만들어 export 합니다.        
+
+resetFruit.js
+
+    // 초기화 기능을 위하여 초기 redux 값을 넣습니다.
+    export default {
+        fruit:{
+            apple:0,
+            banana:0,
+        },
+        strawberry:{count: 0},
+    }
+
+그 후 FruitDataAction을 이용하여 초기화시켜 줍니다.        
+updateReset는 각각의 변수에 접근하여 초깃값으로 돌려줍니다.        
+
+    FruitDataAction.updateReset(resetFruit);
+
+
+# 마치며
+redux를 사용하는 방법은 사람마다 다르고 저 또한 부족한 점이 많아        
+미흡한 점이 있습니다. 혹시라도 부족한 점이 있거나 수정해야할것이 있으면        
+바로 고치겠습니다. redux예시 파일 같이 첨부하겠습니다.        
+송재혁입니다. 감사합니다.         
