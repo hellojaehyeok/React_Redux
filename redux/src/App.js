@@ -11,7 +11,7 @@ import resetFruit from './resetFruit';
 function App() {
   const fruitData = useSelector(store=>{ return store.fruitData}); // useSelector를 이용하여 store.fruitData에 접근합니다.
   const fruitRedux = JSON.parse(JSON.stringify(fruitData.fruit)); // fruitData안에있는 fruit에 접근합니다.
-  const strawberryRedux = JSON.parse(JSON.stringify(fruitData.strawberry)); // fruitData안에있는 strawberry에 접근합니다.
+  const strawberryRedux = JSON.parse(JSON.stringify(fruitData.strawberry));; // fruitData안에있는 strawberry에 접근합니다.
 
   // 버튼 컴포넌트
   const btnComponent = (name) => {

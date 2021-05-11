@@ -106,24 +106,8 @@ fruitData.js
 actionCreators의 경로를 지정해 줍니다.       
 FruitDataAction는 store에 있는 데이터를 수정할 때 사용합니다.       
 
-useSelector를 사용하여 저장한 데이터에 접근합니다.          
-
-
-    import { FruitDataAction } from './store/actionCreators';  // 정보를 수정할 때 사용합니다.
-    import { useSelector } from 'react-redux'; // 정보를 가져올 때 사용합니다.
-    .
-    .
-    .
-    const fruitData = useSelector(store=>{ return store.fruitData}); // useSelector를 이용하여 store.fruitData에 접근합니다.
-    const fruitRedux = JSON.parse(JSON.stringify(fruitData.fruit)); // fruitData안에있는 fruit에 접근합니다.
-    .
-    .
-    .
-    fruitRedux.apple -= 1; // 가져온 데이터를 수정합니다.
-    FruitDataAction.updateFruit({fruit:fruitRedux}); // 수정한 데이터를 적용합니다.
-    
-
-useSelector 로 받아온 데이터는 직접적으로 수정이 불가능하여       
+useSelector를 사용하여 저장한 데이터에 접근합니다.      
+useSelector 로 받아온 데이터가 수정이 불가능할 경우       
 JSON.parse(JSON.stringify( -data- )) 를 사용하여 변수를 따로 만든 후 수정합니다.       
 
 
@@ -133,8 +117,97 @@ JSON.parse(JSON.stringify( -data- )) 를 사용하여 변수를 따로 만든 �
 위 코드에서 데이터를 찾지 못하거나 변경이 안 되는 것 같다 싶으면 redux 코드를 다시       
 확인하시고 storeData를 콘솔에 찍어 제대로 접근하고 있는지 확인하면 됩니다.            
 
+
     const storeData = useSelector(store=>{ return store});
 
+
+
+나머지 설명은 주석으로 하겠습니다.         
+
+app.js
+
+    import logo from './logo.svg';
+    import './App.css';
+
+    // Redux
+    import { FruitDataAction } from './store/actionCreators';  // 정보를 수정할 때 사용합니다.
+    import { useSelector } from 'react-redux'; // 정보를 가져올 때 사용합니다.
+
+    // Redux
+    import resetFruit from './resetFruit'; 
+
+    function App() {
+        const fruitData = useSelector(store=>{ return store.fruitData}); // useSelector를 이용하여 store.fruitData에 접근합니다.
+        const fruitRedux = JSON.parse(JSON.stringify(fruitData.fruit)); // fruitData안에있는 fruit에 접근합니다.
+        const strawberryRedux = JSON.parse(JSON.stringify(fruitData.strawberry));; // fruitData안에있는 strawberry에 접근합니다.
+
+        // 버튼 컴포넌트
+        const btnComponent = (name) => {
+            return(
+            <div>
+                <button className="plus" onClick={() => onClickPlus(name)}> + </button>
+                <button className="minus" onClick={() => onClickMinus(name)}> - </button>
+            </div>
+            )
+        }
+        // + 버튼 클릭
+        const onClickPlus = (name) => {
+            if(name == "strawberry"){
+            strawberryRedux.count += 1; // 가져온 데이터를 수정합니다.
+            FruitDataAction.updateStrawberry({strawberry:strawberryRedux}); // 수정한 데이터를 적용합니다.
+            return;
+            }
+
+            if(name == "apple"){
+            fruitRedux.apple += 1;
+            }else if(name == "banana"){
+            fruitRedux.banana += 1;
+            }
+            FruitDataAction.updateFruit({fruit:fruitRedux});
+        }
+        // - 버튼 클릭
+        const onClickMinus = (name) => {
+            if(name == "strawberry"){
+            strawberryRedux.count -= 1;
+            FruitDataAction.updateStrawberry({strawberry:strawberryRedux});
+            return;
+            }
+
+            if(name == "apple"){
+            fruitRedux.apple -= 1;
+            }else if(name == "banana"){
+            fruitRedux.banana -= 1;
+            }
+            FruitDataAction.updateFruit({fruit:fruitRedux});
+        }
+        // 초기화 버튼 클릭
+        const onClickReset = () => {
+            // 외부에서 가져온 초기redux(resetFruit)을 넣어 초기화합니다. 
+            FruitDataAction.updateReset(resetFruit);
+        }
+
+        return (
+            <div className="App">
+            <h1>React - Redux</h1>
+            <div className="listContainer">
+                <ul className="listWrap">
+                <li>
+                    사과 : {fruitRedux.apple} {btnComponent("apple")}
+                </li>
+                <li>
+                    바나나 : {fruitRedux.banana} {btnComponent("banana")}
+                </li>
+                <li>
+                    딸기 : {strawberryRedux.count} {btnComponent("strawberry")}
+                </li>
+                </ul>
+                <button onClick={() => onClickReset()} className="reset">초기화</button>
+            </div>
+            </div>
+        );
+    }
+    export default App;
+    
 
 # Redux 초기화
 redux를 초기화하는 여러 가지 방법 중 하나입니다.        
