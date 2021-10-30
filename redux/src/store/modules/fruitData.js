@@ -1,5 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
 
 // 액션 타입을 정의해줍니다.
 const UPDATE_FRUIT = 'uesr/fruit';
@@ -23,19 +22,13 @@ const initialState = {
 // immer 를 사용하여 값을 수정하는 리듀서입니다.
 export default handleActions({
   [UPDATE_FRUIT]: (state, action) => {
-    return produce(state, draft => {
-      draft.fruit = action.payload.fruit ? action.payload.fruit : draft.fruit;
-    });
+    return {...state, fruit : action.payload.fruit}
   },
+
   [UPDATE_STRAWBERRY]: (state, action) => {
-    return produce(state, draft => {
-      draft.strawberry = action.payload.strawberry ? action.payload.strawberry : draft.strawberry;
-    });
+    return {...state, strawberry : action.payload.strawberry}
   },
   [UPDATE_RESET]: (state, action) => {
-    return produce(state, draft => {
-      draft.fruit = action.payload.fruit ? action.payload.fruit : draft.fruit;
-      draft.strawberry = action.payload.strawberry ? action.payload.strawberry : draft.strawberry;
-    });
+    return {...action.payload}
   },
 }, initialState);
