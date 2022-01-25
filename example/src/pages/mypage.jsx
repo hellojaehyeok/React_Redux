@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserDataAction } from '../store/actionCreators';
+import Button from '../components/button/button.js';
 
 const MyPage = (props) => {
     let navigate = useNavigate();
@@ -36,7 +37,7 @@ const MyPage = (props) => {
     return(
         <Container>
             <Title>
-                Mypage <button onClick={() => navigate("/")}>Go main</button>
+                Mypage <Button onClick={() => navigate("/")} value={"Go main"}/>
             </Title>
 
             <InputWrap>
@@ -45,8 +46,8 @@ const MyPage = (props) => {
                 <Input placeholder="email" value={email} onChange={e=>setEmail(e.target.value)}/>
                 <Input placeholder="phone" value={phone} onChange={e=>setPhone(e.target.value)}/>
             </InputWrap>
-            <button onClick={onClickSave}>save data</button> <br />
-            <button onClick={onClickInit}>init</button>
+            <Button onClick={onClickSave} value={"save data"}/> <br />
+            <Button onClick={onClickInit} value={"init"} />
         </Container>
     )
 };

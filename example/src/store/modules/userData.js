@@ -1,5 +1,3 @@
-import { useReducer } from "react";
-
 
 // 액션 타입을 정의한다.
 const MODIFY_USERDATA = 'userData/MODIFY_USERDATA';
