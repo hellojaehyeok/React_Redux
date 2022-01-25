@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserDataAction } from '../store/actionCreators';
 
 const MyPage = (props) => {
     let navigate = useNavigate();
+    const userData = useSelector(store=>store.userData)
+    const [name, setName] = useState(userData.name);
+    const [job, setJob] = useState(userData.job);
+    const [email, setEmail] = useState(userData.email);
+    const [phone, setPhone] = useState(userData.phone);
 
-    const inputData = [
-        {placeholder:"name"},
-        {placeholder:"job"},
-        {placeholder:"email"},
-        {placeholder:"phone"},
-    ]
+
+    useEffect(()=>{
+        setName(userData.name);
+        setJob(userData.job);
+        setEmail(userData.email);
+        setPhone(userData.phone);
+    }, [userData])
+    
+    const onClickSave = () => {
+        UserDataAction.modifyUserData({
+            name,
+            job,
+            email,
+            phone,
+        }) 
+    }
+
+    const onClickInit = () => {
+        UserDataAction.initUserData()
+    }
 
     return(
         <Container>
@@ -19,14 +40,13 @@ const MyPage = (props) => {
             </Title>
 
             <InputWrap>
-                {
-                    inputData.map((item, index) => {
-                        return(
-                            <Input placeholder={item.placeholder} key={index}></Input>
-                        )
-                    })
-                }
+                <Input placeholder="name" value={name} onChange={e=>setName(e.target.value)}/>
+                <Input placeholder="job" value={job} onChange={e=>setJob(e.target.value)}/>
+                <Input placeholder="email" value={email} onChange={e=>setEmail(e.target.value)}/>
+                <Input placeholder="phone" value={phone} onChange={e=>setPhone(e.target.value)}/>
             </InputWrap>
+            <button onClick={onClickSave}>save data</button> <br />
+            <button onClick={onClickInit}>init</button>
         </Container>
     )
 };
