@@ -3,9 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from './pages/main';
 import MyPage from './pages/mypage';
 import Header from './components/header/header';
-import { createStore } from 'redux';
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import { store } from './store/store';
 import { UserDataAction } from './store/actionCreators';
 import { useEffect } from 'react';
 
@@ -24,7 +21,6 @@ function App() {
   }, [])
 
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -34,7 +30,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
   );
 }
 
